@@ -1,0 +1,428 @@
+Subroutine Breakdown
+
+Properties of each function:
+* "Local" variables
+* "Global" variables (Read-from)
+* "Global" variables (Written-to)
+* "External" variables (Read-from)
+* "External" variables (Written-to)
+* Files (Read-from)
+* Files (Written-to)^
+* Internal Subroutines
+* Subroutine CALLs
+
+^ Only ReSNM-created text files. Renaming files does not count.
+
+! The difference between "local, global," and "external" variables is as follows:
+   * "Local" variables are generally SET inside of a code block and only are referenced inside of that block. They are deleted once their purpose is served.
+   * "Global" variables are SET wherever and are also referenced "outside" of the code block they were originally defined in, or are "local" variables
+      where is it easiest to be kept around up to the completion of the script. :P
+   * "External" variables were defined in the ReSNM.ini file, read from it, and then SET as "global" string variables; categorized separately for clarity.
+  
+  The difference between "read-from" (R) or "written-to" (W) should be self-explanatory, but to clarify only when a variable is
+  labeled as "W" does it mean its value is being changed wherever (of course if it's an "external" variable then the value copied from ReSNM.ini
+  is being edited, not the actual value written in the file itself). "Local" variables, given they are created and exist soley in main or a
+  subroutine, do not have a R/W distinction.
+
+
+! The following are blanks for use to copy/paste.
+ * "Local" variables:
+ * "Global" variables (R):
+ * "Global" variables (W):
+ * "External" variables (R):
+ * "External" variables (W):
+ * Files (R):
+ * Files (W):
+ * Internal Subroutines:
+ * Subroutine CALLs:
+ 
+ 
+Possible "external" variables to be defined in ReSNM.ini (explanations for each located in ReSNM.ini itself):
+ * PROCESSDNF11
+ * PROCESSDNF20
+ * PROCESSDNF3520
+ * PROCESSDNF3530
+ * PROCESSDNF3535
+ * RMDNF20VC8RUNTIME
+ * RMDNF20OFFICE2K3DEBUGGER
+ * RMDNF30RGBRASTERIZER
+ * RMDNF30WIC
+ * RMDNF30MSXML6
+ * RMDNF30XPS
+ * RMDNF35VC9RUNTIME
+ * RMDNF35FFXBAPPLUGIN
+ * RMDNF35FFCLICKONCEEXT
+ * PROCESSLNGDNF11
+ * PROCESSLNGDNF20
+ * PROCESSLNGDNF3520
+ * PROCESSLNGDNF3530
+ * PROCESSLNGDNF3535
+ * TARGETOS
+ * T13ADDONS
+ * ROEADDONS
+ * ALSOINSTALLERS
+ * MERGEFXS
+ * SILENT
+ * COMPLEVEL
+
+
+
+<   ReSNM   >
+
+
+
+Main >
+ * "Local" variables:
+   * SWITCH
+   * DNF11VER
+   * DNF11INPROCESS
+   * ABSENCEMSG
+   * LNGDNF11INPROCESS
+   * P20
+   * P3520
+   * P3530
+   * P3535
+   * PROCESSANY20PLUS
+   * DNF20INPROCESS
+   * PROCESSANY35
+   * DNF35INPROCESS
+   * DNF3520INPROCESS
+   * DNF3530INPROCESS
+   * DNF3535INPROCESS
+   * WRONG
+   * DNF20VER
+   * DNF20LNGNAME
+   * DNF35VER
+   * LNGDNF35INPROCESS
+   * LOOPCNT
+   * LNGDNF3535INPROCESS
+   * DNF35LNGNAME
+   * SAFETY
+ * "Global" variables (R):
+   * MISSING
+   * TMPDIR
+ * "Global" variables (W):
+   * RSNMVER
+   * OUTCNT
+   * DNF11DIR
+   * DNF20DIR
+   * DNF30DIR
+   * DNF35DIR
+   * VERBOSITY
+   * DNF11LNGCNT
+   * LNGDNF20INPROCESS
+   * DNF20LNGCNT
+   * DNF20LNGSTR
+   * DNF20LNGSTRSET
+   * LNGDNF3520INPROCESS
+   * XMLFILETYPE
+   * XMLFILE
+   * ORIGINALXPS
+   * LNGDNF3530INPROCESS
+   * FFXBAPINPROCESS
+   * FFCLICKONCEINPROCESS
+   * DNF30LNGCNT
+   * DNF35LNGCNT
+   * DNF35LNGSTR
+   * DNF35LNGSTRSET
+   * LNGPROCESSCNT
+   * DNF30LNGSTR
+   * NAME
+   * MSG
+   * FLD
+ * "External" variables (R):
+   * [Any and all applicable variables defined in ReSNM.ini] \\Simply SET into program memory once read.
+ * "External" variables (W):
+   * TARGETOS \\Upper-casing the string in-case not already so.
+ * Files (R):
+   * ReSNM.ini
+ * Files (W):
+   * OUT%OUTCNT%\PROCESSDATA.txt
+   * [Various "INST*.cmd" files] \\Get eventually merged to be used as an installation script.
+ * Subroutine CALLs:
+   * TERMINATE
+   * OUTCOUNT
+   * SETMEMPARAM
+   * DNF20MSTCHECK
+   * DNF20XP2K3CHECK
+   * UPDT23VGEQ3REQCHECK
+   * TMPCOUNT
+   * DNF11
+   * DNF11LNG
+   * DNF20
+   * DNF20LNG
+   * DNF30
+   * DNF35
+   * DNF30LNG
+   * DNF35LNG
+   * INSTBASE
+   * EXEMAKER
+   * T13ADDONMAKER
+   * ROEADDONMAKER
+<
+
+Core .NET Subroutines >
+DNF20MSTCHECK
+* "External" variables (R):
+   * RMDNF20VC8RUNTIME
+   * RMDNF20OFFICE2K3DEBUGGER
+
+DNF20XP2K3CHECK
+ * "Global" variables (W):
+   * ABSENCEMSG
+
+UPDT23VGEQ3REQCHECK
+ * "Global" variables (W):
+   * UPDT23VGEQ3REQ
+   * UPDT23V3
+   * UPDT23V4
+   * MISSING
+
+DNF11
+ * "Local" variables:
+   * HFXORDEREDLIST
+   * LONGSWITCH
+   * SKIPHFX
+   * STUB
+ * "Global" variables (R):
+   * TMPDIR
+   * DNF11DIR
+   * TARGETOS
+ * "Global" variables (W):
+   * MISSING
+ * Files (W):
+   * TMP\DNF11REM.txt
+   * TMP\INSTALL1.cmd
+   * TMP\DNF11.REG
+
+DNF11LNG
+ * "Global" variables (R):
+   * TMPDIR
+   * DNF11DIR
+   * LNGPROCESSCNT
+   * DNF11LNGCNT
+ * "Global" variables (W):
+   * DNF11LNGSTR
+   * DNF11LNGSTRSET
+ * Files (W):
+   * TMP\INSTALL1.cmd
+
+DNF20
+ * "Local" variables:
+   * HFXORDEREDLIST
+   * SKIPHFX
+   * TOUPDT22V1
+   * TOUPDT22V2
+   * TOUPDT23V2
+   * TOUPDT23V3
+   * LOOPCNT
+ * "Global" variables (R):
+   * TMPDIR
+   * TARGETOS
+   * UPDT23V4
+   * UPDT23V3
+   * UPDT23VGEQ3REQ
+   * DNF20DIR
+ * "Global" variables (W):
+   * MISSING
+ * Files (W):
+   * TMP\DNF20REM.txt
+   * TMP\INSTALL2.cmd
+   * TMP\INSTREGDOWN2.cmd
+ * Subroutine CALLs:
+   * INSTREGDOWN
+
+DNF20LNG
+ * "Global" variables (R):
+   * TMPDIR
+   * DNF20LNGSTR
+   * LNGPROCESSCNT
+   * DNF20LNGCNT
+   * LNGDNF20INPROCESS
+   * LNGDNF3520INPROCESS
+   * DNF20LNGSTRSET
+   * DNF35LNGSTRSET
+ * Files (W):
+   * TMP\INSTALL2.cmd
+
+DNF30
+ * "Local" variables:
+   * HFXORDEREDLIST
+   * LOOPCNT
+ * "Global" variables (R):
+   * TMPDIR
+   * DNF30DIR
+   * TARGETOS
+   * LNGDNF3530INPROCESS
+ * "Global" variables (W):
+   * XMLFILE
+   * ORIGINALXPS
+ * "Global" variables (W):
+   * MISSING
+ * "External" variables (R):
+   * DNF30RGBRASTERIZER
+   * RMDNF30MSXML6
+   * RMDNF30WIC
+   * RMDNF30XPS
+ * Files (W):
+   * TMP\INSTALL3.cmd
+   * TMP\DNF30REM.txt
+   * TMP\INSTREGDOWN3.cmd
+ * Subroutine CALLs:
+   * INSTREGDOWN
+
+DNF30LNG
+ * "Global" variables (R):
+   * TMPDIR
+   * DNF30LNGSTR
+   * LNGPROCESSCNT
+   * DNF30LNGCNT
+   * DNF35LNGSTRSET
+   * DNF35LNGCNT
+   * DNF30DIR
+ * "External" variables (R):
+   * RMDNF30XPS
+ * Files (W):
+   * TMP\INSTALL3.cmd
+
+DNF35
+ * "Local" variables:
+   * HFXORDEREDLIST
+   * SKIPHFX
+   * LOOPCNT
+ * "Global" variables (R):
+   * TMPDIR
+ * "Global" variables (W):
+   * MISSING
+ * "External" variables (R):
+   * RMDNF35FFCLICKONCEEXT
+ * Files (W):
+   * TMP\INSTALL35.cmd
+   * TMP\DNF35REM.txt
+   * TMP\INSTREGDOWN35.cmd
+ * Subroutine CALLs:
+   * INSTREGDOWN
+
+DNF35LNG
+ * "Global" variables (R):
+   * DNF35DIR
+   * DNF35LNGSTR
+   * TMPDIR
+   * LNGPROCESSCNT
+   * DNF35LNGCNT
+   * DNF35LNGSTRSET
+ * Files (W):
+   * TMP\INSTALL35.cmd
+<
+
+Ancilliary Subroutines >
+OUTCOUNT
+ * "Global" variables (W):
+   * OUTCNT
+
+TMPCOUNT
+ * "Global" variables (W):
+   * TMPCNT \\Only used within the TMPCOUNT subroutine.
+
+INSTREGDOWN
+ * Files (W):
+   * TMP\INSTREGDOWN.cmd
+
+SETMEMPARAM
+ * "Global" variables (W):
+   * MEMPARAM
+ * "External" variables (W):
+   * COMPLEVEL
+
+CHANGEMEMPARAM
+ * "Global" variables (W):
+   * MEMPARAM
+<
+
+Executable Creation Subroutines >
+INSTBASE
+ * "Global" variables (R):
+   * RSNMVER
+   * NAME
+   * TARGETOS
+   * VERBOSITY
+   * FFXBAPINPROCESS
+   * FFCLICKONCEINPROCESS
+ * Files (W):
+   * TMP\INSTALL.cmd
+   * TMP\INSTEND.cmd
+
+INSTALLERMAKER
+ * "Global" variables (R):
+   * MSG
+   * TARGETOS
+   * VERBOSITY
+ * "External" variables (R):
+   * T13ADDONS
+   * ROEADDONS
+ * Subroutine CALLs:
+   * EXEMAKER
+   * T13ADDONMAKER
+   * ROEADDONMAKER
+
+EXEMAKER
+ * "Local" variables:
+   * CREATE
+ * "Global" variables (R):
+   * TARGETOS
+   * NAME
+   * MEMPARAM
+   * OUTCNT
+ * "External" variables (R):
+   * T13ADDONS
+   * ROEADDONS
+   * ALSOINSTALLERS
+ * Files (W):
+   * TMP\config.txt
+ * Internal Subroutines:
+   * EXECOMP
+ * Subroutine CALLs:
+   * CHANGEMEMPARAM
+   * SETMEMPARAM
+
+T13ADDONMAKER
+ * "Global" variables (R):
+   * TMPDIR
+   * TARGETOS
+   * NAME
+   * VERBOSITY
+   * MSG
+   * MSG2
+   * MEMPARAM
+   * OUTCNT
+ * Files (W):
+   * %TMPDIR%\entries_%TARGETOS%%NAME%.ini
+ * Internal Subroutines:
+   * T13ADDONCOMP
+ * Subroutine CALLs:
+   * TMPCOUNT
+   * CHANGEMEMPARAM
+   * SETMEMPARAM
+
+ROEADDONMAKER
+ * "Global" variables (R):
+   * TMPDIR
+   * TARGETOS
+   * NAME
+   * VERBOSITY
+   * MSG
+   * MSG2
+   * NAME
+   * MEMPARAM
+   * OUTCNT
+ * Files (W):
+   * %TMPDIR%\entries_%TARGETOS%%NAME%.ini
+ * Internal Subroutines:
+   * ROEADDONCOMP
+ * Subroutine CALLs:
+   * TMPCOUNT
+   * CHANGEMEMPARAM
+   * SETMEMPARAM
+
+TERMINATE
+<
