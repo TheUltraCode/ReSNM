@@ -6,8 +6,7 @@ REM Current maintainer - ultra_code (or just ultra :) )
 REM Original SNMsynth forum thread: https://msfn.org/board/topic/127790-silent-net-maker-synthesized-20100118-w2kxp2k3-x86/
 
 REM This script can be ran on Windows NT OSes from 2000 onwards, although I'd recommend just running this under XP.
-REM NOTE: If you plan on creating a .NET 1.1 SP1 installer, you ironically need .NET 1.1 SP1 and the latest security updates (just KB2833941 for XP) installed,
-REM       hence my recommendation to use XP.
+REM NOTE: If you plan on creating a .NET 1.1 SP1 installer, you ironically need .NET 1.1 SP1 and the latest security updates (just KB2833941 for XP) installed.
 
 REM NOTE: .NET 3.0 SP2 updates KB982168 & KB2756918 both contain two .msp updates targeted at .NET 2.0 SP2: 976765.msp and 980773.msp.
 REM       980773.msp gets installed by .NET 2.0 SP2 updates KB2604092, KB2836941, and KB2901111, thus we can ignore the .msp
@@ -2009,7 +2008,7 @@ IF NOT "%RMDNF30XPS%"=="1" (
 	IF NOT DEFINED LNGDNF3530INPROCESS (
 		ECHO>>TMP\INSTALL3.cmd 	ECHO^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Option Explicit
 		ECHO>>TMP\INSTALL3.cmd 	ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Dim WshShell
-		ECHO>>TMP\INSTALL3.cmd 	ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = CreateObject^("WScript.Shell"^)
+		ECHO>>TMP\INSTALL3.cmd 	ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = CreateObject^^^("WScript.Shell"^^^)
 		ECHO>>TMP\INSTALL3.cmd 	ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs WshShell.Run """%%%%COMSPEC%%%%"" /C RD /Q/S %%%%SYSTEMDRIVE%%%%\XPSDELAYED", 0, True
 		ECHO>>TMP\INSTALL3.cmd 	ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = Nothing
 		ECHO>>TMP\INSTALL3.cmd 	REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\###XPSDELAYED" /V 2 /D "CSCRIPT //NOLOGO %%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs" /F
@@ -2135,8 +2134,8 @@ IF NOT "%RMDNF30XPS%"=="1" IF EXIST "%TMPDIR%\LANGPACK%DNF30LNGSTR%\netfx30lp\XP
 		ECHO>>TMP\INSTALL3.cmd 			SET /A "ROEPOS+=1"
 		ECHO>>TMP\INSTALL3.cmd 			ECHO^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Option Explicit
 		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Dim WshShell
-		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = CreateObject^("WSCript.shell"^)
-		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs WshShell.Run """%%%%COMSPEC%%%%"" /C RD /Q/S %%%%SYSTEMDRIVE%%%%\XPSDELAYED", 0, true
+		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = CreateObject^^^("WSCript.shell"^^^)
+		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs WshShell.Run """%%%%COMSPEC%%%%"" /C RD /Q/S %%%%SYSTEMDRIVE%%%%\XPSDELAYED", 0, True
 		ECHO>>TMP\INSTALL3.cmd 			ECHO^>^>%%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs Set WshShell = Nothing
 		ECHO>>TMP\INSTALL3.cmd 			REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\###XPSDELAYED" /V ^^!ROEPOS^^! /D "CSCRIPT //NOLOGO %%SYSTEMDRIVE%%\XPSDELAYED\SELFREM.vbs" /F
 		ECHO>>TMP\INSTALL3.cmd 		^)
@@ -2518,8 +2517,6 @@ IF DEFINED DNF3530INPROCESS IF NOT "%RMDNF30XPS%"=="1" (
 )
 ECHO>>TMP\INSTALL.cmd 		IF "%%VERBOSITY%%"=="passive" (
 ECHO>>TMP\INSTALL.cmd 			SET "VERBOSITY=qb"
-ECHO>>TMP\INSTALL.cmd 		) ELSE IF "%%VERBOSITY%%"=="silent" (
-ECHO>>TMP\INSTALL.cmd 			SET "VERBOSITY=qn"
 ECHO>>TMP\INSTALL.cmd 		) ELSE IF "%%VERBOSITY%%"=="quiet" (
 ECHO>>TMP\INSTALL.cmd 			SET "VERBOSITY=qn"
 ECHO>>TMP\INSTALL.cmd 		)
@@ -2586,7 +2583,7 @@ REM .NET 3.0/3.5 also uses the same ngen.exe located in the exact same spot for 
 REM .NET 3.0/3.5 truly are just DLC for .NET 2.0.
 IF %1 EQU 1 (
 	ECHO/>>TMP\INSTEND.cmd
-	ECHO>>TMP\INSTEND.cmd START /WAIT %%SYSTEMROOT%%\Microsoft.NET\Framework\v2.0.50727\ngen.exe executequeueditems
+	ECHO>>TMP\INSTEND.cmd %%SYSTEMROOT%%\Microsoft.NET\Framework\v2.0.50727\ngen.exe executequeueditems
 )
 ECHO>>TMP\INSTEND.cmd GOTO :EOF
 ECHO/>>TMP\INSTEND.cmd
