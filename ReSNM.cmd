@@ -588,12 +588,12 @@ IF DEFINED DNF35INPROCESS (
 		)
 		IF "%RMDNF30WIC%"=="1" (
 			ECHO NOTE: WIC will be removed from 3.0 SP2 framework.
-			ECHO Use another source to install it before 3.0 SP2 framework. See guide.
+			ECHO Use another source to install it before 3.0 SP2 framework.
 			ECHO/
 		)
 		IF "%RMDNF30MSXML6%"=="1" (
 			ECHO NOTE: MSXML6 will be removed from 3.0 SP2 framework.
-			ECHO Use another source to install it before 3.0 SP2 framework. See guide.
+			ECHO Use another source to install it before 3.0 SP2 framework.
 			ECHO/
 		) ELSE (
 			REM First msxml6-KB*x86.exe file will be used.
@@ -632,42 +632,40 @@ IF DEFINED DNF35INPROCESS (
 		)
 		IF "%RMDNF30XPS%"=="1" (
 			ECHO NOTE: XPS print driver will be removed from 3.0 SP2 framework.
-			ECHO Use another source to install it. See guide.
+			ECHO Use another source to install it.
 			ECHO/
 		) ELSE (
 			IF "%TARGETOS%"=="XP" (
 				IF EXIST HFXS\WindowsXP-KB971276-v3-x86-ENU.exe (
 					IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-						ECHO NOTE: 3.0 SP2 XPS driver will be updated with WindowsXP-KB971276-v3-x86-ENU.exe,
+						ECHO NOTE: WindowsXP-KB971276-v3-x86-ENU.exe will update 3.0 SP2 XPS driver,
 						ECHO patched with the latest files from WindowsServer2003-KB971276-v2-x86-ENU.exe.
 						ECHO/
 					) ELSE (
 						ECHO WARNING: WindowsXP-KB971276-v3-x86-ENU.exe will update 3.0 SP2 XPS driver,
-						ECHO but to get the latest files, you ALSO need WindowsServer2003-KB971276-v2-x86-ENU.exe.
+						ECHO but lacking the latest files from WindowsServer2003-KB971276-v2-x86-ENU.exe.
 						ECHO/
-						SET /A "ABSENCEMSG=1"
 					)
 				) ELSE (
 					IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-						ECHO WARNING: WindowsXP-KB971276-v3-x86-ENU.exe is required to update XPS driver
-						ECHO with the latest files from WindowsServer2003-KB971276-v2-x86-ENU.exe present.
-					) ELSE (
 						ECHO WARNING: WindowsXP-KB971276-v3-x86-ENU.exe is required to update 3.0 SP2 XPS
-						ECHO driver. To get the latest files you ALSO need WindowsServer2003-KB971276-v2-x86-ENU.exe.
+						ECHO driver with the latest files from WindowsServer2003-KB971276-v2-x86-ENU.exe.
+					) ELSE (
+						ECHO WARNING: WindowsXP-KB971276-v3-x86-ENU.exe and WindowsServer2003-KB971276-v2-
+						ECHO x86-ENU.exe are required to update 3.0 SP2 XPS driver with the latest files.
 					)
 					ECHO/
 					SET /A "ORIGINALXPS=1"
-					SET /A "ABSENCEMSG=1"
 				)
 			) ELSE (
 				IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
 					ECHO NOTE: WindowsServer2003-KB971276-v2-x86-ENU.exe will update 3.0 SP2 XPS driver.
 					ECHO/
 				) ELSE (
-					ECHO WARNING: WindowsServer2003-KB971276-v2-x86-ENU.exe is required to update XPS.
+					ECHO WARNING: WindowsServer2003-KB971276-v2-x86-ENU.exe is required to update
+					ECHO 3.0 SP2 XPS driver.
 					ECHO/
 					SET /A "ORIGINALXPS=1"
-					SET /A "ABSENCEMSG=1"
 				)
 			)
 		)
@@ -735,7 +733,7 @@ IF DEFINED DNF35INPROCESS (
 				COPY /Y MSTS\35SP1_REM_VC9.mst TMP >NUL
 			)
 			ECHO NOTE: Visual C++ 9 runtime libraries will be removed from 3.5 SP1 framework.
-			ECHO Use another source to install them. See guide.
+			ECHO Use another source to install them.
 			ECHO/
 		)
 		IF NOT "%RMDNF35FFXBAPPLUGIN%"=="1" (
@@ -1298,14 +1296,14 @@ IF "%RMDNF20VC8RUNTIME%"=="1" (
 		COPY /Y MSTS\20SP2_REM_VC8.mst TMP >NUL
 	)
 	ECHO NOTE: Visual C++ 8 runtime libraries from 2.0 SP2 framework will be removed.
-	ECHO Use another source to install them. See guide.
+	ECHO Use another source to install them.
 	ECHO/
 )
 IF "%RMDNF20OFFICE2K3DEBUGGER%"=="1" (
 	IF NOT EXIST TMP\20SP2_REM_OFFICE2K3DEBUGGER.mst (
 		COPY /Y MSTS\20SP2_REM_OFFICE2K3DEBUGGER.mst TMP >NUL
 	)
-	ECHO NOTE: Office 2K3 debugger from 2.0 SP2 framework will be removed. See guide.
+	ECHO NOTE: Office 2K3 debugger from 2.0 SP2 framework will be removed.
 	ECHO/
 )
 GOTO :EOF
@@ -1928,72 +1926,62 @@ IF NOT "%RMDNF30XPS%"=="1" (
 		MD "%DNF30DIR%\DNF30\XPS"
 		REM We cannot use the TMPDIR variable here with the executable path given that we *need* to use quoutes with it (given spaces in the string)
 		REM and the START command does not like having the executable we want to use wrapped in quoutes, but we can just use the relative path instead.
-		START /WAIT TMP\TMP%TMPCNT%\dotNetFramework\dotNetFX30\XPSEPSC-x86-en-US.exe /Q /X:"%DNF30DIR%\DNF30\XPS"
+		START /WAIT TMP\TMP%TMPCNT%\wcu\dotNetFramework\dotNetFX30\XPSEPSC-x86-en-US.exe /Q /X:"%DNF30DIR%\DNF30\XPS"
 		IF EXIST "%DNF30DIR%\DNF30\XPS\*.amd64.*" (
 			FOR /F %%I IN ('DIR /B "%DNF30DIR%\DNF30\XPS\*.amd64.*"') DO (
 				DEL /F/Q "%DNF30DIR%\DNF30\XPS\%%I"
 				ECHO/>"%DNF30DIR%\DNF30\XPS\%%I"
 			)
 		)
-		IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-			FOR %%I IN (spuninst.exe,spmsg.dll,spupdsvc.exe,update\spcustom.dll,update\update.exe,update\updspapi.dll) DO (
-				7za x -o"%DNF30DIR%\DNF30\XPS\" -y HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe %%I >NUL
-			)
-		)
-		REM unidrv.hlp is already basically an empty help file, hence probably why it was originally
-		REM deleted and repalced with an empty file with the same name.
-		REM However, I'm not positive as to what exactly uses it and when, and some guy in the original forum
-		REM thread complained about it, so I'll just... not delete it. :)
-		REM The unidrv.hlp files that each update possesses are identical to each other.
-		REM DEL /F/Q "%DNF30DIR%\DNF30\XPS\unidrv.hlp"
 	) ELSE (
-		IF "%TARGETOS%"=="XP" (
-			IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-				ECHO Updating XPS driver with latest files from both KB971276 updates ^(XP/2K3^)...
-			) ELSE (
-				ECHO Updating XPS driver with WindowsXP-KB971276-v3-x86-ENU.exe...
-			)
-			MD "%TMPDIR%\XP-KB971276-V3"
-			7za x -y -o"%TMPDIR%\XP-KB971276-V3" HFXS\WindowsXP-KB971276-v3-x86-ENU.exe >NUL
-			DEL /F/Q "%TMPDIR%\XP-KB971276-V3\update\branches.inf" "%TMPDIR%\XP-KB971276-V3\update\updatebr.inf"
-			REN "%TMPDIR%\XP-KB971276-V3\update\update_SP3QFE.inf" update.inf
-			FOR /F %%I IN ('DIR /B "%TMPDIR%\XP-KB971276-V3\SP3QFE\*.amd64.*"') DO (
-				DEL /F/Q "%TMPDIR%\XP-KB971276-V3\SP3QFE\%%I" >NUL
-				ECHO/>"%TMPDIR%\XP-KB971276-V3\SP3QFE\%%I"
-			)
-			REM DEL /F/Q "%TMPDIR%\XP-KB971276-V3\SP3QFE\unidrv.hlp"
-			REM ECHO/>"%TMPDIR%\XP-KB971276-V3\SP3QFE\unidrv.hlp"
-			IF NOT EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-				MD "%DNF30DIR%\DNF30\XPS"
-				XCOPY /E/Q/Y "%TMPDIR%\XP-KB971276-V3\*.*" "%DNF30DIR%\DNF30\XPS" >NUL
-			)
-		)
 		IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
-			IF "%TARGETOS%"=="2K3" (
-				ECHO Updating XPS driver with WindowsServer2003-KB971276-v2-x86-ENU.exe...
-			)
 			MD "%TMPDIR%\2K3-KB971276-V2"
-			7za x -y -o"%TMPDIR%\2K3-KB971276-V2" HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe >NUL
+			START /WAIT HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe /Q /X:"%TMPDIR%\2K3-KB971276-V2"
 			DEL /F/Q "%TMPDIR%\2K3-KB971276-V2\update\branches.inf" "%TMPDIR%\2K3-KB971276-V2\update\updatebr.inf"
 			REN "%TMPDIR%\2K3-KB971276-V2\update\update_SP2QFE.inf" update.inf
 			FOR /F %%I IN ('DIR /B "%TMPDIR%\2K3-KB971276-V2\SP2QFE\*.amd64.*"') DO (
 				DEL /F/Q "%TMPDIR%\2K3-KB971276-V2\SP2QFE\%%I" >NUL
 				ECHO/>"%TMPDIR%\2K3-KB971276-V2\SP2QFE\%%I"
 			)
+		)
+		
+		MD "%DNF30DIR%\DNF30\XPS"
+		
+		IF "%TARGETOS%"=="XP" (
+			IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
+				ECHO Updating XPS driver with WindowsXP-KB971276-v3/Server2003-...-v2-x86-ENU.exe...
+			) ELSE (
+				ECHO Updating XPS driver with WindowsXP-KB971276-v3-x86-ENU.exe...
+			)
+			MD "%TMPDIR%\XP-KB971276-V3"
+			START /WAIT HFXS\WindowsXP-KB971276-v3-x86-ENU.exe /Q /X:"%TMPDIR%\XP-KB971276-V3"
+			DEL /F/Q "%TMPDIR%\XP-KB971276-V3\update\branches.inf" "%TMPDIR%\XP-KB971276-V3\update\updatebr.inf"
+			REN "%TMPDIR%\XP-KB971276-V3\update\update_SP3QFE.inf" update.inf
+			FOR /F %%I IN ('DIR /B "%TMPDIR%\XP-KB971276-V3\SP3QFE\*.amd64.*"') DO (
+				DEL /F/Q "%TMPDIR%\XP-KB971276-V3\SP3QFE\%%I" >NUL
+				ECHO/>"%TMPDIR%\XP-KB971276-V3\SP3QFE\%%I"
+			)
+			
+			REM unidrv.hlp is already basically an empty help file, hence probably why it was originally
+			REM deleted and repalced with an empty file with the same name.
+			REM However, I'm not positive as to what exactly uses it and when, and some guy in the original forum
+			REM thread complained about it, so I'll just... not delete it. :)
+			REM The unidrv.hlp files that each update possesses are identical to each other.
+			REM DEL /F/Q "%TMPDIR%\XP-KB971276-V3\SP3QFE\unidrv.hlp"
+			REM ECHO/>"%TMPDIR%\XP-KB971276-V3\SP3QFE\unidrv.hlp"
+			
+			IF EXIST HFXS\WindowsServer2003-KB971276-v2-x86-ENU.exe (
+				COPY /Y "%TMPDIR%\2K3-KB971276-V2\SP2QFE\*.*" "%TMPDIR%\XP-KB971276-V3\SP3QFE" >NUL
+				FOR %%I IN (spuninst.exe,spmsg.dll,spupdsvc.exe,update\spcustom.dll,update\update.exe,update\updspapi.dll) DO (
+					COPY /Y "%TMPDIR%\2K3-KB971276-V2\%%I" "%TMPDIR%\XP-KB971276-V3\%%I" >NUL
+				)
+			)
+			XCOPY /E/Q/Y "%TMPDIR%\XP-KB971276-V3\*.*" "%DNF30DIR%\DNF30\XPS" >NUL
+		) ELSE (
+			ECHO Updating XPS driver with WindowsServer2003-KB971276-v2-x86-ENU.exe...
 			REM DEL /F/Q "%TMPDIR%\2K3-KB971276-V2\SP2QFE\unidrv.hlp"
 			REM ECHO/>"%TMPDIR%\2K3-KB971276-V2\SP2QFE\unidrv.hlp"
-			MD "%DNF30DIR%\DNF30\XPS"
-			IF "%TARGETOS%"=="XP" (
-				IF EXIST "%TMPDIR%\XP-KB971276-V3\UPDATE" (
-					COPY /Y "%TMPDIR%\2K3-KB971276-V2\SP2QFE\*.*" "%TMPDIR%\XP-KB971276-V3\SP3QFE" >NUL
-					FOR %%I IN (spuninst.exe,spmsg.dll,spupdsvc.exe,update\spcustom.dll,update\update.exe,update\updspapi.dll) DO (
-						COPY /Y "%TMPDIR%\2K3-KB971276-V2\%%I" "%TMPDIR%\XP-KB971276-V3\%%I" >NUL
-					)
-					XCOPY /E/Q/Y "%TMPDIR%\XP-KB971276-V3\*.*" "%DNF30DIR%\DNF30\XPS" >NUL
-				)
-			) ELSE (
-				XCOPY /E/Q/Y "%TMPDIR%\2K3-KB971276-V2\*.*" "%DNF30DIR%\DNF30\XPS" >NUL
-			)
+			XCOPY /E/Q/Y "%TMPDIR%\2K3-KB971276-V2\*.*" "%DNF30DIR%\DNF30\XPS" >NUL
 		)
 	)
 	
