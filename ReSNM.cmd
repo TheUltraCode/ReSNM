@@ -2403,7 +2403,7 @@ ECHO>>TMP\INSTALL.cmd 		)
 ECHO/>>TMP\INSTALL.cmd
 ECHO>>TMP\INSTALL.cmd 		IF DEFINED VALIDPREFIX (
 ECHO>>TMP\INSTALL.cmd 			SET "VALIDPREFIX="
-ECHO>>TMP\INSTALL.cmd 			IF /I ^"^^!EVAL:~1^^!^"=="h" (
+ECHO>>TMP\INSTALL.cmd 			IF /I ^"^^!EVAL:~1^^!^"=="help" (
 ECHO>>TMP\INSTALL.cmd 				SET /A "HELP=1"
 ECHO>>TMP\INSTALL.cmd 			) ELSE IF /I ^"^^!EVAL:~1^^!^"=="?" (
 ECHO>>TMP\INSTALL.cmd 				SET /A "HELP=1"
