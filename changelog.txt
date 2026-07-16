@@ -1,0 +1,20 @@
+<ReSNM changelog>
+* 2026 Jun. 16 - Initial release
+    Big changes from SNMsynth:
+        * Massive refactoring while improving/fixing existing logic.
+        * Standardized processing as much as possible between different .NET versions.
+        * Removed dependency on third-party 7zSD.sfx file, now uses official 7-zip file.
+        * Rewrote part of the created INSTALL.cmd script to support 4 flags/parameters and be more dynamic.
+        * Added requirement of text files that list the order in which updates are applied.
+        * Added requirement of "HFXS" and "MSTS" directories.
+        * Mandate latest Service Packs for each .NET version.
+        
+    Other changes of note:
+        * Allow the installation of .NET 1.1 SP1 before 3.0 SP2 by using `NET STOP [msiexec.exe service]` before the installation of any .NET version.
+        * Split-off FILEVER.vbs and TRANSFORMDB.vbs into their own standalone files.
+        * Gutted the ABSENCEMSG section - now all missing updates of importance will be treated as necessary.
+        * Added clear-to-go messages for falsely-problematic .NET 3.0 SP2 updates KB982168 & KB2756918.
+        * Correctly-denoted the format of .reg files used for .NET 1.1 and 2.0.
+        * Provide .NET 3.0 SP2 XPS updates with a correct %XPSVERBOSITY% string in INSTALL.cmd.
+        * Removed deletion of file "unidrv.hlp" from .NET 3.0 XPS processing steps.
+        * Deleted more files created by INSTALL.cmd after they were finished being used.
