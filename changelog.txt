@@ -18,3 +18,8 @@
         * Provide .NET 3.0 SP2 XPS updates with a correct %XPSVERBOSITY% string in INSTALL.cmd.
         * Removed deletion of file "unidrv.hlp" from .NET 3.0 XPS processing steps.
         * Deleted more files created by INSTALL.cmd after they were finished being used.
+* 2026 Jun. 18 - v1.01 release
+    Made QoL changes that should have existed at launch:
+        * Avoid attempting to apply "976765.msp" and "980773.msp" from .NET 3.0 SP2 updates KB982168 and KB2756918 to .NET 3.0 SP2 redist.
+        * Change "??ORDER.txt" checks to instead check for "??ORDER%TARGETOS%.txt".
+          Now each OS requires their own "??ORDER%TARGETOS%.txt" file for each .NET version (e.g. 35ORDER2K3.txt).
