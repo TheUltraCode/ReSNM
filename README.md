@@ -48,8 +48,6 @@ If you plan on creating a .NET 1.1 SP1 installer, you ironically need .NET 1.1 S
 
 For .NET 2.0, make sure to choose between which redist you want to source .NET 2.0 SP2 from - either `NetFx20SP2_x86.exe` or `dotnetfx35.exe`. I have added checks so that you can only pull from one or the other. If you purely want .NET 2.0, say, for a .NET 1.1 SP1 + 2.0 SP2 installer for 2K or XP, then go with the former redist. However, if you plan on including .NET 3.0+3.5, then you must use the later redist.
 
-For .NET 3.0 SP2, when ReSNM processes updates `KB982168` and `KB2756918`, it is okay to click `Okay` through the error messages. Both updates contain out-of-date patches targetting .NET 2.0 SP2 that are included/replaced by individual .NET 2.0 SP2 updates. The errors are caused by ReSNM attempting to automatically apply said patches to the .NET 3.0 SP2 redist being worked-on, but obviously given said redist is not a .NET 2.0 SP2 redist, it throws an error and does not get applied (as it should not). Perhaps I could add a patch check to avoid making the user see the errors...
-
 ### Individual Components
 
 ReSNM allows you to modify/remove different components from the .NET 2.0-3.5 redists. It should be noted that in most instances you must install any components you have chosen to remove separately prior to installing each .NET version (specifics on which components this rule applies to covered in `ReSNM.ini`). Here are some things I want to point out regarding some components:
@@ -87,7 +85,7 @@ Dump all of your redists, updates, and language packs into the `\HFXS` directory
 
 Configure ReSNM settings via `ReSNM.ini`.
 
-Add the updates to want to apply to a given .NET version to the appropriate `??ORDER.txt` file. I provided the ones I used for testing which include all the updates needed to make Windows Update happy. Do note that there is no support for per-OS `ORDER.txt` files, so for the provided Windows 2000 files, you have to rename them to remove the "2K" from their names in order for ReSNM to read from them. Language packs are automatically detected from the `\HFXS` directory and processed, so do not include them in an `ORDER.txt` file.
+Add the updates to want to apply to a given .NET version to the appropriate `??ORDER%TARGETOS%.txt` file. I provided the ones I used for testing which include all the updates needed to make Windows Update happy. Language packs are automatically detected from the `\HFXS` directory and processed, so do not include them in an `??ORDER%TARGETOS%.txt` file.
 
 Finally, run `ReSNM.cmd` and watch as your installer gets built. :)
 
