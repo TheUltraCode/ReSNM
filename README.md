@@ -85,7 +85,7 @@ Dump all of your redists, updates, and language packs into the `\HFXS` directory
 
 Configure ReSNM settings via `ReSNM.ini`.
 
-Add the updates to want to apply to a given .NET version to the appropriate `??ORDER%TARGETOS%.txt` file. I provided the ones I used for testing which include all the updates needed to make Windows Update happy. Language packs are automatically detected from the `\HFXS` directory and processed, so do not include them in an `??ORDER%TARGETOS%.txt` file.
+Add the updates to want to apply to a given .NET version to the appropriate `??ORDER%TARGETOS%.txt` file. I provided the ones I used for testing which include all the updates needed to make Windows Update happy. Language packs are automatically detected from the `\HFXS` directory and processed, so do not include them in a `??ORDER%TARGETOS%.txt` file.
 
 Finally, run `ReSNM.cmd` and watch as your installer gets built. :)
 
