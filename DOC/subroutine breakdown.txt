@@ -248,6 +248,7 @@ DNF20LNG
 DNF30
  * "Local" variables:
    * HFXORDEREDLIST
+   * SKIPMSP
    * LOOPCNT
  * "Global" variables (R):
    * TMPDIR
