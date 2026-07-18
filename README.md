@@ -4,7 +4,7 @@
 
 ReSNM is a Windows batch script meant to create customized .NET 1.1, 2.0 SP2, 3.0 SP2, and 3.5 SP1 installers targeting all 32-bit NT5 OSes (Windows 2000, XP,  and Server 2003). It can process all updates and language packs meant for each version (including Service Pack 1 for .NET 1.1), and output self-extracting installers as well as T-13 and RunOnceEx add-ons meant for use in nLite and RVM Integrator.
 
-The first iteration of the script called SNM was authored by MSFN Forums user Tomcat76, and supported up-to .NET 2.0/3.0 SP1 and 3.5, ending development in 2008. When Tomcat76 stopped development, user strel picked-up the torch, renaming the project SNMsynth and adding support for .NET 2.0/3.0 SP2 and 3.5 SP1, continuing development until 2010.  Finally, user Zilver (with the help of user gora) released a minor update to SNMsynth in 2013, but development never picked-up in earnest after strel.
+The first iteration of the script called SNM was authored by MSFN Forums user Tomcat76, and supported up-to .NET 2.0/3.0 SP1 and 3.5, ending development in 2008. When Tomcat76 stopped development, user strel picked-up the torch, renaming the project to SNMsynth and adding support for .NET 2.0/3.0 SP2 and 3.5 SP1, continuing development until 2010.  Finally, user Zilver (with the help of user gora) released a minor update to SNMsynth in 2013, but development never picked-up in earnest after strel.
 
 ## Initial Gripes with SNMsynth
 
