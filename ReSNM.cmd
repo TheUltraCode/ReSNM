@@ -15,9 +15,7 @@ REM       976765.msp is a required update for the .NET 2.0 SP2 version included 
 REM       itself from KB976765. However, KB2656352 (with its 2656352.msp) builds-upon 976765.msp, and KB2901111 (with its 2901111.msp)
 REM       succeeds that. Thus, we can skip KB2656352 and instead install KB2901111 after KB976765.
 REM       Therefore, the .NET 2.0 SP2 .msp's included by .NET 3.0 SP2 updates KB982168 & KB2756918 are worthless, as there are
-REM       .NET 2.0 SP2 updates that include the same or better .msp's.
-REM       So when you decide to make a .NET 3.0 SP2 installer and include KB982168 & KB2756918 as updates, you are okay
-REM       hitting "okay" on the pop-up error windows that appear when ReSNM tries to apply their provided .msp's and fails.
+REM       .NET 2.0 SP2 updates that include the same or possible succesor .msp's.
 
 REM A couple of formatting standards I've used:
 REM   * All white-space code indentation is done with TABs, not 4 SPACEs, because it is more compatbile with CMD.
@@ -54,7 +52,7 @@ REM ---------- Initial Setup ----------
 TITLE Refined Silent .NET Maker
 ECHO/
 
-SET "RSNMVER=v1.00"
+SET "RSNMVER=v1.01"
 ECHO Refined Silent .NET Maker %RSNMVER%
 ECHO/
 ECHO ^<Initial checks^>
@@ -1445,14 +1443,14 @@ REM ---------- .NET 1.1 Handling ----------
 :DNF11
 START /WAIT MSIEXEC /a "%TMPDIR%\netfx.msi" TARGETDIR="%DNF11DIR%\DNF11" /qb
 
-IF EXIST 11ORDER.txt (
-	SET "HFXORDEREDLIST=TYPE 11ORDER.txt"
+IF EXIST 11ORDER%TARGETOS%.txt (
+	SET "HFXORDEREDLIST=TYPE 11ORDER%TARGETOS%.txt"
 ) ELSE (
-	ECHO/>11ORDER.txt
+	ECHO/>11ORDER%TARGETOS%.txt
 	ECHO/
-	ECHO ERROR: Text file "11ORDER.txt" with listed .NET 1.1 updates was missing.
-	ECHO Please enter the names of the .NET 1.1 updates you wish to merge into the
-	ECHO newly-created "11ORDER.txt" text file, ideally in chronological then
+	ECHO ERROR: Text file "11ORDER%TARGETOS%.txt" with listed .NET 1.1 updates was missing.
+	ECHO Please enter the filenames of the .NET 1.1 updates you wish to merge into the
+	ECHO newly-created "11ORDER%TARGETOS%.txt" text file, ideally in chronological then
 	ECHO numerical order. Do not include language packs or special updates.
 	SET /A "MISSING=1"
 	GOTO :EOF
@@ -1686,14 +1684,14 @@ ECHO>>TMP\INSTALL2.cmd 	FOR /F "tokens=3" %%%%I IN ^('REG QUERY "HKLM\SOFTWARE\M
 ECHO>>TMP\INSTALL2.cmd 	REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\DC3BF90CC0D3D2F398A9A6D1762F70F3\InstallProperties" /V UnfixedDBName /F
 ECHO>>TMP\INSTALL2.cmd )
 
-IF EXIST 20ORDER.txt (
-	SET "HFXORDEREDLIST=TYPE 20ORDER.txt"
+IF EXIST 20ORDER%TARGETOS%.txt (
+	SET "HFXORDEREDLIST=TYPE 20ORDER%TARGETOS%.txt"
 ) ELSE (
-	ECHO/>20ORDER.txt
+	ECHO/>20ORDER%TARGETOS%.txt
 	ECHO/
-	ECHO ERROR: Text file "20ORDER.txt" with listed .NET 2.0 SP2 updates was missing.
-	ECHO Please enter the names of the .NET 2.0 SP2 updates you wish to merge into the
-	ECHO newly-created "20ORDER.txt" text file, ideally in chronological then
+	ECHO ERROR: Text file "20ORDER%TARGETOS%.txt" with listed .NET 2.0 SP2 updates was missing.
+	ECHO Please enter the filenames of the .NET 2.0 SP2 updates you wish to merge into
+	ECHO the newly-created "20ORDER%TARGETOS%.txt" text file, ideally in chronological then
 	ECHO numerical order. Do not include language packs or special updates.
 	SET /A "MISSING=1"
 	GOTO :EOF
@@ -2017,14 +2015,14 @@ ECHO>>TMP\INSTALL3.cmd START /WAIT DNF30\Netfx30a_x86.msi /l*v "%%TMP%%\DNF30ins
 ECHO>>TMP\INSTALL3.cmd FOR /F "tokens=3" %%%%I IN ^('REG QUERY "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\0DC1503A46F231838AD88BCDDC8E8F7C\InstallProperties" /V UnfixedDBName ^^^| FINDSTR "UnfixedDBName"'^) DO ^(REN %%%%I 39d3e.msi^)
 ECHO>>TMP\INSTALL3.cmd REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\0DC1503A46F231838AD88BCDDC8E8F7C\InstallProperties" /V UnfixedDBName /F
 
-IF EXIST 30ORDER.txt (
-	SET "HFXORDEREDLIST=TYPE 30ORDER.txt"
+IF EXIST 30ORDER%TARGETOS%.txt (
+	SET "HFXORDEREDLIST=TYPE 30ORDER%TARGETOS%.txt"
 ) ELSE (
-	ECHO/>30ORDER.txt
+	ECHO/>30ORDER%TARGETOS%.txt
 	ECHO/
-	ECHO ERROR: Text file "30ORDER.txt" with listed .NET 3.0 SP2 updates was missing.
-	ECHO Please enter the names of the .NET 3.0 SP2 updates you wish to merge into the
-	ECHO newly-created "30ORDER.txt" text file, ideally in chronological then
+	ECHO ERROR: Text file "30ORDER%TARGETOS%.txt" with listed .NET 3.0 SP2 updates was missing.
+	ECHO Please enter the filenames of the .NET 3.0 SP2 updates you wish to merge into
+	ECHO the newly-created "30ORDER%TARGETOS%.txt" text file, ideally in chronological then
 	ECHO numerical order. Do not include language packs or special updates.
 	SET /A "MISSING=1"
 	GOTO :EOF
@@ -2041,18 +2039,21 @@ IF EXIST HFXS\NDP30SP2*.exe (
 		) ELSE (
 			ECHO Processing %%I...
 			IF /I "%%I"=="ndp30sp2-kb982168-x86.exe" (
-				SET /A "OKAYTOIGNORE=1"
+				SET /A "SKIPMSP=1"
 			)
 			IF /I "%%I"=="ndp30sp2-kb2756918-x86.exe" (
-				SET /A "OKAYTOIGNORE=1"
-			)
-			IF DEFINED OKAYTOIGNORE (
-				SET "OKAYTOIGNORE="
-				ECHO .   ^(Ignore the error messages - click "Okay" through both of them^)   .
+				SET /A "SKIPMSP=1"
 			)
 			FOR /F %%J IN ('DIR /B "%TMPDIR%\HFX\*.msp"') DO (
-				START /WAIT MSIEXEC /p "%TMPDIR%\HFX\%%J" /a "%TMPDIR%\ADMIN30\Netfx30a_x86.msi" /qb
+				IF DEFINED SKIPMSP (
+					IF /I NOT "%%J"=="NDP20SP2-KB976765.msp" IF /I NOT "%%J"=="NDP20SP2-KB980773.msp" (
+						START /WAIT MSIEXEC /p "%TMPDIR%\HFX\%%J" /a "%TMPDIR%\ADMIN30\Netfx30a_x86.msi" /qb
+					)
+				) ELSE (
+					START /WAIT MSIEXEC /p "%TMPDIR%\HFX\%%J" /a "%TMPDIR%\ADMIN30\Netfx30a_x86.msi" /qb
+				)
 			)
+			SET "SKIPMSP="
 			FOR /F "tokens=2 delims=-" %%J IN ("%%I") DO (ECHO>>TMP\DNF30REM.txt %%J)
 		)
 		DEL /F/Q "%TMPDIR%\HFX\*.msp"
@@ -2189,14 +2190,14 @@ ECHO>>TMP\INSTALL35.cmd START /WAIT DNF35\vs_setup.msi /l*v "%%TMP%%\DNF35instal
 ECHO>>TMP\INSTALL35.cmd FOR /F "tokens=3" %%%%I IN ^('REG QUERY "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\26DDC2EC4210AC63483DF9D4FCC5B59D\InstallProperties" /v UnfixedDBName ^^^| FINDSTR "UnfixedDBName"'^) DO ^(REN %%%%I 39d44.msi^)
 ECHO>>TMP\INSTALL35.cmd REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\26DDC2EC4210AC63483DF9D4FCC5B59D\InstallProperties" /v UnfixedDBName /f
 
-IF EXIST 35ORDER.txt (
-	SET "HFXORDEREDLIST=TYPE 35ORDER.txt"
+IF EXIST 35ORDER%TARGETOS%.txt (
+	SET "HFXORDEREDLIST=TYPE 35ORDER%TARGETOS%.txt"
 ) ELSE (
-	ECHO/>35ORDER.txt
+	ECHO/>35ORDER%TARGETOS%.txt
 	ECHO/
-	ECHO ERROR: Text file "35ORDER.txt" with listed .NET 3.5 SP1 updates was missing.
-	ECHO Please enter the names of the .NET 3.5 SP1 updates you wish to merge into the
-	ECHO newly-created "35ORDER.txt" text file, ideally in chronological then
+	ECHO ERROR: Text file "35ORDER%TARGETOS%.txt" with listed .NET 3.5 SP1 updates was missing.
+	ECHO Please enter the filenames of the .NET 3.5 SP1 updates you wish to merge into
+	ECHO the newly-created "35ORDER%TARGETOS%.txt" text file, ideally in chronological then
 	ECHO numerical order. Do not include language packs or special updates.
 	SET /A "MISSING=1"
 	GOTO :EOF
