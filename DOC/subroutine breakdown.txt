@@ -293,6 +293,7 @@ DNF35
    * LOOPCNT
  * "Global" variables (R):
    * TMPDIR
+   * TARGETOS
  * "Global" variables (W):
    * MISSING
  * "External" variables (R):
