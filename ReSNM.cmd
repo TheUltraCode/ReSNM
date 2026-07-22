@@ -2449,7 +2449,7 @@ IF DEFINED FFXBAPINPROCESS (
 IF DEFINED FFCLICKONCEINPROCESS (
 	ECHO>>TMP\INSTALL.cmd 				SET HELPMSG3=" ^& VbCrLf ^& "   [- /]noffclickonce : Avoid installing .NET Assistant 1.0 Mozilla extension ^^^(ClickOnce^^^).
 )
-ECHO>>TMP\INSTALL.cmd 				SET HELPMSG4=" ^& VbCrLf ^& "   [- /]h/? : This help.
+ECHO>>TMP\INSTALL.cmd 				SET HELPMSG4=" ^& VbCrLf ^& "   [- /]help/? : This help window.
 ECHO/>>TMP\INSTALL.cmd
 ECHO>>TMP\INSTALL.cmd 				SET FINALHELPMSG=^^!HELPMSG1^^!^^!HELPMSG2^^!^^!HELPMSG3^^!^^!HELPMSG4^^!
 ECHO>>TMP\INSTALL.cmd 				SET "HELPMSG1="
